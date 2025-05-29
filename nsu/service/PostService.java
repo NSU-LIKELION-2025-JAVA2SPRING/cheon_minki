@@ -1,30 +1,30 @@
-package nsu.controller;
+package nsu.service;
 
 import nsu.domain.Post;
 import nsu.repository.PostRepository;
-import nsu.service.PostService;
 
 import java.util.List;
 
-public class PostController {
+public class PostService {
+
 
     public void createPost(String title) {
         createPost(title);
     }
 
     public List<Post> getAllPosts() {
-        return getAllPosts(); // ✅ Repository 호출
+        return getAllPosts();
     }
 
     public Post getPostById(Long id) {
-        return getPostById(id); // ✅ Repository 호출
+        return getPostById(id);
     }
 
     public void updatePost(Long id, String title) {
-        updatePost(id, title); // ✅ Repository 호출
+        updatePost(id, title);
     }
 
     public void deletePost(Long id) {
-        deletePost(id); // ✅ Repository 호출
+        deletePost(id);
     }
 }
