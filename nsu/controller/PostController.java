@@ -3,28 +3,33 @@ package nsu.controller;
 import nsu.domain.Post;
 import nsu.repository.PostRepository;
 import nsu.service.PostService;
-
 import java.util.List;
 
 public class PostController {
+    private final PostService postService;
+
+    public PostController() {
+        PostRepository repository = new PostRepository();  // 하나의 저장소를 생성
+        this.postService = new PostService(repository);     // 서비스에 주입
+    }
 
     public void createPost(String title) {
-        createPost(title);
+        postService.createPost(title);
     }
 
     public List<Post> getAllPosts() {
-        return getAllPosts(); // ✅ Repository 호출
+        return postService.getAllPosts();
     }
 
     public Post getPostById(Long id) {
-        return getPostById(id); // ✅ Repository 호출
+        return postService.getPostById(id);
     }
 
     public void updatePost(Long id, String title) {
-        updatePost(id, title); // ✅ Repository 호출
+        postService.updatePost(id, title);
     }
 
     public void deletePost(Long id) {
-        deletePost(id); // ✅ Repository 호출
+        postService.deletePost(id);
     }
 }
