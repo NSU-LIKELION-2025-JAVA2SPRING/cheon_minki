@@ -6,6 +6,10 @@ import java.util.*;
 public class PostRepository {
     private final Map<Long, Post> map = new HashMap<>();
 
+    public static boolean existsByTitle(String title) {
+        return false;
+    }
+
     public void save(Post post) {
         map.put(post.getId(), post);
     }

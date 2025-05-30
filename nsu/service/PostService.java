@@ -1,6 +1,7 @@
 package nsu.service;
 
 import nsu.domain.Post;
+import nsu.exception.DuplicateTitleException;
 import nsu.repository.PostRepository;
 import java.util.List;
 
@@ -12,7 +13,7 @@ public class PostService {
         this.postRepository = postRepository;
     }
 
-    public void createPost(String title) {
+    public void createPost(String title) throws DuplicateTitleException {
 
         Post post = new Post(nextId++, title);
 
@@ -20,8 +21,8 @@ public class PostService {
             System.out.println("게시물 제목 30자가 초과되었습니다.");
         } else if (title == null || title.isBlank()) { // 값이 없거나 비었으면 실행
             System.out.println("게시물 제목이 없거나 비어있습니다."); 
-        } else if (post.getTitle().equals(title)) { // 게시물이 중복이면 실행
-            System.out.println("게시물이 제목이 중복입니다.");
+        } else if (PostRepository.existsByTitle(title)) { // 게시물이 중복이면 실행
+            throw new DuplicateTitleException(title);
         } else {
             postRepository.save(post); // 문제가 없을경우 게시물 저장 
         }

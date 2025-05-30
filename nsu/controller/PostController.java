@@ -1,6 +1,7 @@
 package nsu.controller;
 
 import nsu.domain.Post;
+import nsu.exception.DuplicateTitleException;
 import nsu.repository.PostRepository;
 import nsu.service.PostService;
 import java.util.List;
@@ -13,7 +14,7 @@ public class PostController {
         this.postService = new PostService(repository);     // 서비스에 주입
     }
 
-    public void createPost(String title) {
+    public void createPost(String title) throws DuplicateTitleException {
         postService.createPost(title);
     }
 
