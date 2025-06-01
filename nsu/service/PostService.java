@@ -20,7 +20,7 @@ public class PostService {
         if (title.length() > 30) { // 게시물이 30자 초과면 실행
             System.out.println("게시물 제목 30자가 초과되었습니다.");
         } else if (title == null || title.isBlank()) { // 값이 없거나 비었으면 실행
-            System.out.println("게시물 제목이 없거나 비어있습니다."); 
+            System.out.println("게시물 제목이 없거나 비어있습니다.");
         } else if (PostRepository.existsByTitle(title)) { // 게시물이 중복이면 실행
             throw new DuplicateTitleException(title);
         } else {
@@ -36,9 +36,12 @@ public class PostService {
         return postRepository.findById(id);
     }
 
-    public void updatePost(Long id, String title) {
-        Post post = postRepository.findById(id);
-        if (post != null && title != null && !title.isBlank()) {
+    public void updatePost(Long id, String title) throws DuplicateTitleException {
+        Post post = postRepository.findById(id); // id로 게시글 찾기
+
+        if (PostRepository.existsByTitle(title)) { // 게시물이 중복이면 실행
+            throw new DuplicateTitleException(title);
+        }else if (title != null && !title.isBlank()) { // 제목의 값이 있거나 비어있지않다면 실행
             post.setTitle(title);
             postRepository.save(post);
         }

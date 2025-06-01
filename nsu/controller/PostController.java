@@ -26,7 +26,7 @@ public class PostController {
         return postService.getPostById(id);
     }
 
-    public void updatePost(Long id, String title) {
+    public void updatePost(Long id, String title) throws DuplicateTitleException {
         postService.updatePost(id, title);
     }
 
