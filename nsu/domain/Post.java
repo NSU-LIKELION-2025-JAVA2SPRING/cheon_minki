@@ -1,11 +1,13 @@
 package nsu.domain;
 
+import nsu.IdGenerator;
+
 public class Post {
     private Long id;
     private String title;
 
-    public Post(Long id, String title) {
-        this.id = id;
+    public Post(String title) {
+        this.id = IdGenerator.generateId();
         this.title = title;
     }
 

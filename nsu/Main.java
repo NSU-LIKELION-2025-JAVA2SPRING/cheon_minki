@@ -3,12 +3,14 @@ package nsu;
 import nsu.controller.PostController;
 import nsu.domain.Post;
 import nsu.exception.DuplicateTitleException;
+import nsu.repository.PostRepository;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws DuplicateTitleException {
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         PostController controller = new PostController();
         boolean running = true;
@@ -29,8 +31,18 @@ public class Main {
                 case 1 -> {
                     System.out.print("제목: ");
                     String title = scanner.nextLine();
-                    controller.createPost(title);
-                    System.out.println("게시글이 작성되었습니다.");
+                    boolean isDuplicate = false;
+                    for (Post post : controller.getAllPosts()) {
+                        if (Objects.equals(post.getTitle(), title)) {
+                            isDuplicate = true;
+                            System.out.println("게시물이 중복되었습니다.");
+                            break;
+                        }
+                    }
+                    if (!isDuplicate) {
+                        controller.createPost(title);
+                        System.out.println("게시글이 작성되었습니다.");
+                    }
                 }
                 case 2 -> {
                     List<Post> posts = controller.getAllPosts();

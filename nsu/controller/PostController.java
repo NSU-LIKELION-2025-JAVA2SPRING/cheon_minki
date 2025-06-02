@@ -14,7 +14,7 @@ public class PostController {
         this.postService = new PostService(repository);     // 서비스에 주입
     }
 
-    public void createPost(String title) throws DuplicateTitleException {
+    public void createPost(String title) {
         postService.createPost(title);
     }
 
@@ -26,7 +26,7 @@ public class PostController {
         return postService.getPostById(id);
     }
 
-    public void updatePost(Long id, String title) throws DuplicateTitleException {
+    public void updatePost(Long id, String title)  {
         postService.updatePost(id, title);
     }
 
